@@ -9,7 +9,11 @@ API Endpoint:
 Projects
 
 menampilkan seluruh projects (bisa dengan filter)
+
+
 GET: url/api/v1/projects
+
+
 body{
     status: 0, 1, 2...
     owner_id: userId
@@ -17,10 +21,16 @@ body{
 }
 
 menampilkan project berdasarkan id
+
+
 GET: url/api/v1/projects/{id}
 
 update project
+
+
 PUT: url/api/v1/projects/{id}
+
+
 body{
     status, (required)
     asignee_needed, (optional)
@@ -31,7 +41,11 @@ body{
 }
 
 delete project (softdelete)
+
+
 DELETE: url/api/v1/projects/{id}
+
+
 body{
    userId (required)
 }
