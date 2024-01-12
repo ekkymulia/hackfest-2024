@@ -14,11 +14,13 @@ menampilkan seluruh projects (bisa dengan filter)
 GET: url/api/v1/projects
 
 
-body{
-    status: 0, 1, 2...
-    owner_id: userId
-    asignee_needed: number
+optional filter: body{
+    status: 0, 1, 2..., 
+    owner_id: userId, 
+    asignee_needed: number,
 }
+
+
 
 menampilkan project berdasarkan id
 
@@ -28,17 +30,21 @@ GET: url/api/v1/projects/{id}
 update project
 
 
+
+
 PUT: url/api/v1/projects/{id}
 
 
-body{
-    status, (required)
-    asignee_needed, (optional)
-    wanted_deadline, (optional)
-    target_deadline, (optional)
-    title, (optional)
-    description, (optional)
+required body{
+    status, (required),
+    asignee_needed, (optional),
+    wanted_deadline, (optional),
+    target_deadline, (optional),
+    title, (optional),
+    description, (optional),
 }
+
+
 
 delete project (softdelete)
 
