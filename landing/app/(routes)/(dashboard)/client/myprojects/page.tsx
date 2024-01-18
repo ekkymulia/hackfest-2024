@@ -8,23 +8,27 @@ const myClientCol: Column[] = [
   },
   {
     key: "status",
-    label: "STATUS",
+    label: "Status",
   },
   {
-    key: "owner_id",
-    label: "OWNER ID (User)",
+    key: "project_name",
+    label: "Name",
   },
   {
-    key: "asignee_needed",
-    label: "ASIGNEE NEEDED (int)",
+    key: "project_description",
+    label: "Description",
   },
   {
-    key: "asignee",
-    label: "ASIGNEE (User[])",
+    key: "url",
+    label: "File URL",
   },
   {
-    key: "submission",
-    label: "SUBMISSION (SubmissionModel[])",
+    key: "freelancer",
+    label: "Freelancer Name",
+  },
+  {
+    key: "action",
+    label: "Action",
   },
 ];
 
@@ -32,27 +36,13 @@ const myClientRow: Row[] = [
   {
     id: "1",
     status: "Active",
-    owner_id: "User1",
-    asignee_needed: 2,
-    asignee: ["User2", "User3"],
-    submission: ["Submission1", "Submission2"],
+    project_name: "Ucup Project",
+    project_description: "Ucup Desc",
+    url: "ucup.github.com",
+    freelancer: "Samsul Alexander",
+    action: "Button"
   },
-  {
-    id: "2",
-    status: "Paused",
-    owner_id: "User4",
-    asignee_needed: 1,
-    asignee: ["User5"],
-    submission: ["Submission3"],
-  },
-  {
-    id: "3",
-    status: "Finished",
-    owner_id: "User6",
-    asignee_needed: 1,
-    asignee: ["User7"],
-    submission: ["Submission4"],
-  },
+
 ];
 
 const ClientMyProject = () => {
