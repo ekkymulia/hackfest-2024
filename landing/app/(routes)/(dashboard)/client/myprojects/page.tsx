@@ -51,9 +51,12 @@ const statusColorMap = {
   finished: "primary",
 };
 
+
+
 const ClientMyProject = () => {
   return (
     <div className="p-8">
+      <h1 className='text-2xl fw-bold mb-5'>Project Saya Yang Berjalan</h1>
       <ProjectTable columns={myClientCol} rows={myClientRow} colorMap={statusColorMap} />
     </div>
   );

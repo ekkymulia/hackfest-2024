@@ -1,27 +1,82 @@
-import { Input, Textarea } from '@nextui-org/react'
-import React from 'react'
+'use client';
+import { auth } from '@/utils/firebase';
+import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
 
 const ClientProjectPage = () => {
+  const [projectStatus, setProjectStatus] = useState([]);
+
+  const fetchStatus = async () => {
+    try {
+      const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+      const res = await fetch(`http://localhost:8000/api/v1/projects/projectstatus`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Firebase-AppCheck': idToken,
+        },
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      const mappedData = data.results.map(item => ({
+        label: item.name,
+        value: item.id,
+        description: "",
+      }));
+      
+      setProjectStatus(mappedData);
+    } catch (err) {
+      console.error('Fetch user error:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+  }, []); // Pass an empty dependency array
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
+  };
+
   return (
     <div className="m-12">
-      <h1 className='text-2xl fw-bold mb-5'>New Project</h1>
-      <form action="">
-        <label htmlFor="">Title</label>
-        <Input type="text" name='' label="Project's Name" className="mb-4" />
+      <h1 className="text-2xl fw-bold mb-5">Tambah Project Baru</h1>
+      <form onSubmit={handleSubmit}>
+      <label htmlFor="">Pilih Status</label>
+        <Select
+          items={projectStatus}
+          className="mb-4"
+          placeholder='Pilih Status'
+          name="projectStatus" // Provide a meaningful name
+        >
+          {(ps) => <SelectItem key={ps.value}>{ps.label}</SelectItem>}
+        </Select>
+
+        <label htmlFor="">Title Project</label>
+        <Input type="text" name="title" label="Isi Judul Project Baru" className="mb-4" />
 
         <label htmlFor="">Description</label>
-        <Textarea type="text" label="Description" className="mb-4" />
+        <Textarea type="text" name='description' label="Description" className="mb-4" />
 
-        <label htmlFor="">Project URL</label>
-        <Input type="text" label="Project URL" className="mb-4" />
+        <label htmlFor="">Estimasi Deadline</label>
+        <Input type="date" name="wanted_deadline" className="mb-4" />
 
-        <label htmlFor="">Project File</label>
-        <Input type="file" label="" className="mb-4" />
+        <label htmlFor="">Target Deadline</label>
+        <Input type="date" name="target_deadline" className="mb-4" />
 
-        <a href="" type="submit" className='z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-unit-4 min-w-unit-20 h-unit-10 text-small gap-unit-2 rounded-medium [&>svg]:max-w-[theme(spacing.unit-8)] data-[pressed=true]:scale-[0.97] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover'>Submit</a>
+        <label htmlFor="">Berkas Pendukung</label>
+        <Input type="file" name="projectFile" label="" className="mb-4" />
+
+        <Button type="submit" className="my-4" color="primary">
+          Submit
+        </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ClientProjectPage
+export default ClientProjectPage;

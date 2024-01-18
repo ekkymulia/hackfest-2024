@@ -12,6 +12,10 @@ const RegisterPage = () => {
     "loginsession",
     null
   );
+  const [userData, setuserData] = useSessionStorage(
+    "userdata",
+    null
+  );
 
   const [userForm, setUserForm] = useState({
         name: user?.displayName,
@@ -41,6 +45,7 @@ const RegisterPage = () => {
       console.log(data)
 
       if (data.success) {
+        setuserData(data.results)
         window.location.href = '/dashboard';
       }else{
         window.location.href = '/register';

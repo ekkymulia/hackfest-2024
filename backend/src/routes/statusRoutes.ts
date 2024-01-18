@@ -16,8 +16,6 @@ import { ClientProjectSchema, UpdateProjectSchema, DeletedProjectSchema } from "
 const router = Router();
 
 router.get("/", listData);
-router.get("/projectstatus", getAllProjectStatus);
-
 router.get("/:id", dataById);
 
 // router.get("/:id", detailData);
@@ -26,6 +24,7 @@ router.put("/:id", UpdateProjectSchema, updateData);
 
 router.delete("/:id", DeletedProjectSchema, deleteById);
 
+router.get("/projectstatus", getAllProjectStatus);
 
 
 // router.put("/:id", usersSchema, updateData);

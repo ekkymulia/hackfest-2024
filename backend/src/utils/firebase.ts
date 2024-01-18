@@ -35,9 +35,11 @@ export const verifyFirebaseToken = async (token: string) => {
 // model types
 import { User } from '@models/user'
 import { Project } from '@models/project'
+import { ProjectStatus } from '../models/status';
 
 // export collections
 export const db = {
   projects: createCollection<Project>('projects'),
-  users: createCollection<User>('users')
+  users: createCollection<User>('users'),
+  project_status: createCollection<ProjectStatus>('project_status')
 }

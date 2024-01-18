@@ -19,6 +19,10 @@ const LoginPath: React.FC<LoginPathProps> = () => {
     "loginsession",
     null
   );
+  const [userData, setuserData] = useSessionStorage(
+    "userdata",
+    null
+  );
   const pathname = usePathname();
 
   const checkUser = async (mail: string) => {
@@ -37,6 +41,7 @@ const LoginPath: React.FC<LoginPathProps> = () => {
       console.log(data)
 
       if (data.success) {
+        setuserData(data.results)
         window.location.href = '/dashboard';
       }else{
         window.location.href = '/register';

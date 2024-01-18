@@ -4,6 +4,7 @@ import {
   errorResponse,
 } from "../../utils/response";
 import ProjectModel from "../../models/project";
+import ProjectStatusModel from "../../models/status";
 // import { generateId } from "../../utils/helpers";
 
 export const listData = async (req: Request, res: Response) => {
@@ -168,3 +169,16 @@ export const deleteById = async (req: Request, res: Response) => {
       }
   }
 };
+
+export const getAllProjectStatus = async (req: Request, res: Response) => {
+  try{
+    const status = await ProjectStatusModel.getAllStatus();
+    res.status(200).json(
+      successResponse("SUCCESS", { results: status })
+    );
+  }catch(error){
+    res.status(500).json(
+      errorResponse("Internal server error", { results: null })
+    );
+  }
+}
