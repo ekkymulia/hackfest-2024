@@ -121,9 +121,9 @@ export default class ProjectModel implements Project {
         try {
             const projectsRef = queryCollection('projects');
             let query = projectsRef;
-    
+
             if (options?.status !== undefined) {
-                query = query.where('status', '==', options.status);
+                query = query.where('status', '==', parseInt(options.status));
             }
     
             if (options?.owner_id !== undefined) {

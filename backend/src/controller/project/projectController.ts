@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ParsedQs } from 'qs';
 import {
   successResponse,
   errorResponse,
@@ -14,10 +15,15 @@ export const listData = async (req: Request, res: Response) => {
   //   ? String(req.query.s)?.toLowerCase()
   //   : null;
 
-  const { status, owner_id, asignee_needed } = req.body
+  const { status, owner_id } = req.query;
 
   try {
-    const projectList = await ProjectModel.getAll({status, owner_id, asignee_needed});
+    const projectList = await ProjectModel.getAll({
+      status: status as string | undefined,
+      owner_id: owner_id as string | undefined,
+      // asignee_needed: asignee_needed as string | undefined,
+    });
+
     res.status(200).json(
       successResponse("SUCCESS", {
         results: {
