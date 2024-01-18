@@ -18,7 +18,7 @@ export default function HeroSection() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-16">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+          {/* <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-muted-foreground hover:ring-muted-foreground">
               Announcing our next round of funding.{" "}
               <Link href="/" className="font-semibold text-primary">
@@ -26,18 +26,16 @@ export default function HeroSection() {
                 Read more <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
-          </div>
+          </div> */}
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-accent-foreground sm:text-6xl">
-              Data to enrich your online business
+              Transform your projects with ThenaWork
             </h1>
-            <p className="mt-6 text-lg leading-8 text-foreground">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+            <p className="mt-6 text-lg leading-8">
+              Simplify Hiring, Ensure Reliability, and Unlock Unlimited Possibilities. Join Now for a Fixed Monthly Fee – Where Seamless Collaboration Meets Guaranteed Success!
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button as={Link} href="/dashboard" color="primary">
+              <Button as={Link} href="/login" color="primary">
                 Get started
               </Button>
               <Button

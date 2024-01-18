@@ -44,7 +44,7 @@ const Header = () => {
       <NavbarContent>
         <NavbarBrand>
           <Link href="/">
-            <img src="/img-2/tw-logo.png" width={30} height={30} alt="" />
+            <img src="/img-2/tw-logo-ijo.png" width={30} height={30} alt="" />
           </Link>
         </NavbarBrand>
       </NavbarContent>

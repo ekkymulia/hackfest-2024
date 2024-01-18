@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="text-teal-600">
-              <img src="/img-2/tw-logo-text.png" width={200} height={200} alt="" />
+              <img src="/img-2/tw-logo-text-ijo-2.png" width={200} height={200} alt="" />
             </div>
 
             <p className="mt-4 max-w-xs text-gray-500">
@@ -136,68 +136,22 @@ const Footer = () => {
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
             <div>
-              <p className="font-medium text-foreground">Services</p>
+              <p className="font-medium text-foreground">Link</p>
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
                   <Link
-                    href="#"
+                    href="/"
                     className="text-muted-foreground hover:text-primary transition hover:opacity-75"
                   >
                     {" "}
-                    1on1 Coaching{" "}
+                    Home{" "}
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition hover:opacity-75"
-                  >
-                    {" "}
-                    Company Review{" "}
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition hover:opacity-75"
-                  >
-                    {" "}
-                    Accounts Review{" "}
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition hover:opacity-75"
-                  >
-                    {" "}
-                    HR Consulting{" "}
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition hover:opacity-75"
-                  >
-                    {" "}
-                    SEO Optimisation{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="font-medium text-foreground">Company</p>
-
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <Link
-                    href="#"
+                    href="/"
                     className="text-muted-foreground hover:text-primary transition hover:opacity-75"
                   >
                     {" "}
@@ -207,11 +161,27 @@ const Footer = () => {
 
                 <li>
                   <Link
+                    href="/"
+                    className="text-muted-foreground hover:text-primary transition hover:opacity-75"
+                  >
+                    {" "}
+                    Contact{" "}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p className="font-medium text-foreground">Contacts</p>
+
+              <ul className="mt-6 space-y-4 text-sm">
+                <li>
+                  <Link
                     href="#"
                     className="text-muted-foreground hover:text-primary transition hover:opacity-75"
                   >
                     {" "}
-                    Meet the Team{" "}
+                    Address{" "}
                   </Link>
                 </li>
 
@@ -221,12 +191,12 @@ const Footer = () => {
                     className="text-muted-foreground hover:text-primary transition hover:opacity-75"
                   >
                     {" "}
-                    Accounts Review{" "}
+                    Email{" "}
                   </Link>
                 </li>
               </ul>
             </div>
-
+{/* 
             <div>
               <p className="font-medium text-foreground">Helpful Links</p>
 
@@ -307,7 +277,7 @@ const Footer = () => {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
 

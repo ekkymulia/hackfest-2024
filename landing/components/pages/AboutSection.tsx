@@ -38,7 +38,7 @@ export default function AboutSection() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-7 mt-5">
               <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
-                What is ThenaWork?
+                What is <span className="text-green-500"> ThenaWork? </span>
               </h1>
               <p className="mt-3 text-justify">
                 ThenaWork transforms freelancing with a revolutionary{" "}
@@ -57,7 +57,7 @@ export default function AboutSection() {
             </div>
             <div className="md:col-span-5 mt-5">
               <img
-                src="/img-2/tw-logo.png"
+                src="/img-2/tw-logo-ijo.png"
                 alt=""
                 className="mx-auto"
                 height={350}
