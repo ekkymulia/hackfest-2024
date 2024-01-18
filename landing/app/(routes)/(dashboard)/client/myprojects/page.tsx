@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import { useSessionStorage } from "@uidotdev/usehooks";
 import React, { useEffect, useState } from "react";
 interface Project {
   id: string;
@@ -22,6 +23,7 @@ const ClientMyProject = () => {
   const [data, setData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useSessionStorage("user", null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,7 @@ const ClientMyProject = () => {
         const idToken = await auth.currentUser?.getIdToken(
           /* forceRefresh */ true
         );
-        const res = await fetch("http://localhost:8000/api/v1/projects", {
+        const res = await fetch("http://localhost:8000/api/v1/projects?owner_id=" + user.uid, {
           headers: {
             "Content-Type": "application/json",
             "X-Firebase-AppCheck": idToken || "",

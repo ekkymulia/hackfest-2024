@@ -48,7 +48,7 @@ const ClientMyProject = () => {
       const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
       const res = await fetch(`http://localhost:8000/api/v1/projects/`, {
         method: 'GET',
-        body: JSON.stringify({ owner_id: auth.currentUser?.uid }),
+        body: JSON.stringify({ owner_id: user.uid }),
         headers: {
           'Content-Type': 'application/json',
           'X-Firebase-AppCheck': idToken,
