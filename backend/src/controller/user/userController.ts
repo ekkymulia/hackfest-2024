@@ -54,6 +54,36 @@ export const listData = async (req: Request, res: Response) => {
   }
 };
 
+export const checkUser = async (req: Request, res: Response) => {
+  const { email }= req.body;
+
+  console.log(email)
+
+  try{
+    const user = await UserModel.getByEmail(email);
+
+    if(user){
+      res.status(200).json(
+        successResponse("SUCCESS", { results: user })
+      );
+    }else{
+      res.status(404).json(
+        errorResponse("DATA NOT FOUND", { results: null })
+      );
+    }
+  }catch(error: unknown){
+    if (error instanceof Error) {
+      res.status(500).json(
+        errorResponse(error?.message, { results: null })
+      );
+    } else {
+      res.status(500).json(
+        errorResponse("Internal server error", { results: null })
+      );
+    }
+  }
+}
+
 // export const detailData = async (req: Request, res: Response) => {
 //   const userId = req.params.id;
 //   try {
@@ -96,87 +126,77 @@ export const listData = async (req: Request, res: Response) => {
 //   }
 // };
 
-// export const createData = async (req: Request, res: Response) => {
-//   const {
-//     name,
-//     password: formPassword,
-//     username,
-//     phone,
-//     email,
-//     gender,
-//     avatar,
-//     role,
-//   } = req.body;
+export const createData = async (req: Request, res: Response) => {
+  const {
+    name,
+    phone,
+    email,
+    role,
+  } = req.body;
+
   
-//   try {
-//     const id: string = generateId(name);
-//     const hashedPassword: string = await bcrypt.hash(formPassword, 13);
+  try {
+    interface FormData {
+      name: string;
+      email: string;
+      is_verified: boolean;
+      is_active: boolean;
+      // username?: string;
+      subscription_status?:  1 | 2 | 3 | undefined;
+      phone?: string;
+      role?: 1 | 2 | 3 | undefined;
+    }
     
-//     interface FormData {
-//       id: string;
-//       name: string;
-//       password: string;
-//       email: string;
-//       is_verified: boolean;
-//       is_active: boolean;
-//       username?: string;
-//       phone?: string;
-//       gender?: "MALE" | "FEMALE" | undefined;
-//       avatar?: string;
-//       role?: "SUPERUSER" | "ADMIN" | "USER" | undefined;
-//     }
-    
-//     const formData: FormData = {
-//       id,
-//       name,
-//       email,
-//       password: hashedPassword,
-//       is_verified: false,
-//       is_active: true,
-//     };
+    const formData: FormData = {
+      name,
+      email,
+      is_verified: false,
+      is_active: true,
+      subscription_status: 1,
+      phone,
+      role
+    };
 
-//     if (username) formData["username"] = username;
-//     if (phone) formData["phone"] = phone;
-//     if (gender) formData["gender"] = gender;
-//     if (avatar) formData["avatar"] = avatar;
-//     if (role) formData["role"] = role || "USER";
+    if (name) formData["name"] = name;
+    if (phone) formData["phone"] = phone;
+    if (role) formData["role"] = role || 2;
 
-//     const isUserExist = await MUsers.query().findOne({"users.email": email});
+    const isUserExist = await UserModel.getByEmail(email);
     
-//     if (isUserExist) {
-//       res.status(409).json(
-//         errorResponse("Email already exists", { results: null })
-//       );
-//     } else {
-//       const user = await MUsers.query().insert(formData);
-//       const { password, is_active, ...rest } = user;
-//       const updatedUser = { ...rest, isActive: is_active };
+    if (isUserExist) {
+      res.status(409).json(
+        errorResponse("Email already exists", { results: null })
+      );
+    } else {
+      const user = await UserModel.insert(formData);
+      // const { password, is_active, ...rest } = user;
+      // const updatedUser = { ...rest, isActive: is_active };
       
-//       res.status(201).json(
-//         successResponse("Success", {
-//           errors: null,
-//           results: updatedUser
-//         })
-//       );
-//     }
-//   } catch (error: unknown) {
-//     if (error instanceof Error) {
-//       res.status(500).json(
-//         errorResponse(error?.message, {
-//           errors: null,
-//           results: null
-//         })
-//       );
-//     } else {
-//       res.status(500).json(
-//         errorResponse("Internal server error", {
-//           errors: null,
-//           results: null
-//         })
-//       );
-//     }
-//   }
-// };
+      res.status(201).json(
+        successResponse("Success", {
+          errors: null,
+          results: user
+        })
+      );
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json(
+        errorResponse("error", {
+          errors: null,
+          results: null
+        })
+      );
+    } else {
+      res.status(500).json(
+        errorResponse("Internal server error", {
+          errors: null,
+          results: null
+        })
+      );
+    }
+  }
+};
 
 // export const updateData = async (req: Request, res: Response) => {
 //   const userId = req.params.id;

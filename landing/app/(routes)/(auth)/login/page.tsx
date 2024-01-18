@@ -24,6 +24,32 @@ const LoginPage = () => {
     }
   };
 
+  const checkUser = async () => {
+    try {
+      const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+      const res = await fetch(`http://localhost:8000/api/v1/users`, {
+        method: "POST",
+        body: JSON.stringify({ email: auth.currentUser?.email }),
+        headers: {
+          "X-Firebase-AppCheck": idToken,
+        },
+      });
+
+      const data = await res.json();
+      console.log(data)
+
+      if (data.status === "success") {
+        window.location.href = '/dashboard';
+      }else{
+        window.location.href = '/register';
+      }
+    
+    } catch (err) {
+      console.error("Fetch user error:", err);
+      // Handle error, show user a message, etc.
+    }
+  };
+
   useEffect(() => {
     const handleRedirectResult = async () => {
       try {
@@ -33,9 +59,11 @@ const LoginPage = () => {
         setUname(response.user.displayName);
         setLoginSession(response);
 
-        if (response.user !== null) {
-          window.location.href = '/dashboard';
+        if (response.user) {
+          await checkUser();
         }
+
+  
       } catch (error) {
         console.error('Error during redirect result:', error);
       } finally {

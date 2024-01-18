@@ -21,6 +21,33 @@ const LoginPath: React.FC<LoginPathProps> = () => {
   );
   const pathname = usePathname();
 
+  const checkUser = async (mail: string) => {
+    try {
+      const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+      const res = await fetch(`http://localhost:8000/api/v1/users`, {
+        method: "POST",
+        body: JSON.stringify({ email: mail }),
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": idToken,
+        },
+      });
+
+      const data = await res.json();
+      console.log(data)
+
+      if (data.success) {
+        window.location.href = '/dashboard';
+      }else{
+        window.location.href = '/register';
+      }
+    
+    } catch (err) {
+      console.error("Fetch user error:", err);
+      // Handle error, show user a message, etc.
+    }
+  };
+
   const handleSignIn = async () => {
     try {
       if (!auth.currentUser) {
@@ -58,9 +85,16 @@ const LoginPath: React.FC<LoginPathProps> = () => {
         if (response !== null) {
           setUser(response.user);
 
-          if (response.user !== null) {
-            window.location.href = "/dashboard";
+          console.log(response.user);
+
+          // if (response.user !== null) {
+          //   window.location.href = "/dashboard";
+          // }
+
+          if (response.user) {
+            await checkUser(response.user.email);
           }
+  
         } else {
           console.error("No redirect result available.");
         }
