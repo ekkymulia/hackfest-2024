@@ -4,8 +4,9 @@ import { ModeToggle } from "./SwitchTheme";
 import { useSessionStorage } from "@uidotdev/usehooks";
 import { auth } from "@/utils/firebase";
 import { Button } from "@nextui-org/react";
+import LoginPath from "./LoginPath";
 
-type UserCardProps = {
+type LoginButton = {
   handleLogout?: () => void;
   handleSignIn?: () => void;
   isLoading?: boolean;
@@ -39,9 +40,7 @@ const DashboardHeader = () => {
     <div className="flex justify-end items-center p-4 bg-background border-b-1 border-gray-400 dark:border-gray-700">
       <div className="flex gap-2">
         <ModeToggle />
-        <Button color="primary" onClick={handleLogout}>
-          Logout
-        </Button>
+        <LoginPath />
       </div>
     </div>
   );

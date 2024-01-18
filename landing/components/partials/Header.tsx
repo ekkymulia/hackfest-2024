@@ -13,6 +13,7 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/react";
 import { ModeToggle } from "./SwitchTheme";
+import LoginPath from "./LoginPath";
 
 const navLinks = [
   { href: "/", name: "Home" },
@@ -67,14 +68,7 @@ const Header = () => {
 
       <NavbarContent justify="end" className="gap-1">
         <NavbarItem className="flex gap-2">
-          <Button
-            className="hidden md:flex text-base"
-            as={Link}
-            color="primary"
-            href="/login"
-          >
-            Login
-          </Button>
+        <LoginPath />
           <ModeToggle />
         </NavbarItem>
         <NavbarMenuToggle

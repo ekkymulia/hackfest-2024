@@ -45,10 +45,16 @@ const myClientRow: Row[] = [
 
 ];
 
+const statusColorMap = {
+  active: "success",
+  paused: "danger",
+  finished: "primary",
+};
+
 const ClientMyProject = () => {
   return (
     <div className="p-8">
-      <ProjectTable columns={myClientCol} rows={myClientRow} />
+      <ProjectTable columns={myClientCol} rows={myClientRow} colorMap={statusColorMap} />
     </div>
   );
 };
