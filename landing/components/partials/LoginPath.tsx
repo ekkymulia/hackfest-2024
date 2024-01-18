@@ -111,12 +111,12 @@ const LoginPath: React.FC<LoginPathProps> = () => {
   return (
     <div>
       {user ? (
-        pathname === "/" ? (
-          <Button onClick={() => (window.location.href = "/dashboard")}>
+        (pathname === "/" || pathname === "/about" || pathname === "/contact") ? (
+          <Button variant="ghost" color="primary" onClick={() => (window.location.href = "/dashboard")}>
             Dashboard
           </Button>
         ) : (
-          <Button color="primary" onClick={handleLogout}>
+          <Button color="danger" onClick={handleLogout}>
             Logout
           </Button>
         )

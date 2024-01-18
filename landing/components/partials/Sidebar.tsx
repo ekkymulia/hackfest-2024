@@ -8,42 +8,46 @@ import { BiBook, BiHome } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import { MdHomeFilled } from "react-icons/md";
 import CardSubscription from "../sub/CardSubscription";
+import Image from "next/image";
+import { FaRegPlusSquare } from "react-icons/fa";
+import { GoProjectRoadmap } from "react-icons/go";
+import { GrView } from "react-icons/gr";
 
 const reviewerRoutes = [
   {
-    label: "Project Baru",
-    icon: BiHome,
+    label: "New Project",
+    icon: FaRegPlusSquare,
     href: "/reviewer/projects",
   },
   {
-    label: "Project Saya",
-    icon: BiHome,
+    label: "My Project",
+    icon: GoProjectRoadmap,
     href: "/reviewer/myprojects",
   },
 ];
 
 const clientRoutes = [
   {
-    label: "Project Baru",
-    icon: BiHome,
+    label: "New Project",
+    icon: FaRegPlusSquare,
     href: "/client/projects",
   },
   {
-    label: "Project Saya",
-    icon: BiHome,
+    label: "My Project",
+    icon: GoProjectRoadmap,
     href: "/client/myprojects",
   },
 ];
 
 const workerRoutes = [
   {
-    label: "Lihat Project",
-    icon: BiHome,
+    label: "View Project",
+    icon: GrView,
     href: "/worker/projects",
   },
   {
-    label: "Project Saya",
-    icon: BiHome,
+    label: "My Project",
+    icon: GoProjectRoadmap,
     href: "/worker/myprojects",
   },
 ];
@@ -54,10 +58,9 @@ const DashboardSidebar = () => {
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-background border-r-1 border-gray-400 dark:border-gray-700 text-foreground">
       <div className="px-3 py-2 flex-1">
-        <Link href="/dashboard" className="flex items-center pl-3 mb-6">
-          <div className="relative w-24 h-8 mr-4">
-            <p>LOGO</p>
-          </div>
+        <Link href="/dashboard" className="flex items-center justify-start gap-1 ml-3 mb-6">
+          <Image src="/img-2/tw-logo-ijo.png" width={32} height={32} alt="" />
+          <p className="font-semibold text-primary text-base">ThenaWork</p>
         </Link>
         <div className="space-y-4">
           <Button
@@ -83,7 +86,7 @@ const DashboardSidebar = () => {
                   className="w-full flex justify-start h-12 text-base"
                 >
                   {React.createElement(route.icon, { className: "h-5 w-5" })}
-                  {route.label}
+                  <p className="text-foreground text-base">{route.label}</p>
                 </Button>
               ))}
             </div>
@@ -101,7 +104,7 @@ const DashboardSidebar = () => {
                   className="w-full flex justify-start h-12 text-base"
                 >
                   {React.createElement(route.icon, { className: "h-5 w-5" })}
-                  {route.label}
+                  <p className="text-foreground text-base">{route.label}</p>
                 </Button>
               ))}
             </div>
@@ -119,7 +122,7 @@ const DashboardSidebar = () => {
                   className="w-full flex justify-start h-12 text-base"
                 >
                   {React.createElement(route.icon, { className: "h-5 w-5" })}
-                  {route.label}
+                  <p className="text-foreground text-base">{route.label}</p>
                 </Button>
               ))}
             </div>

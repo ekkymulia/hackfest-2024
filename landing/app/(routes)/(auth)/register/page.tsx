@@ -1,23 +1,37 @@
-'use client'
+"use client"
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { auth } from '@/utils/firebase';
-import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, User } from 'firebase/auth'; // Tambahkan User dari firebase/auth
 import { useSessionStorage } from "@uidotdev/usehooks";
-const RegisterPage = () => {
+
+interface UserType {
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+}
+
+interface UserFormType {
+  name: string | null;
+  email: string | null;
+  phone: string;
+  role: string;
+}
+
+const RegisterPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [uname, setUname] = useState("");
-  const [user, setUser] = useSessionStorage("user", null);
-  const [loginSession, setLoginSession] = useSessionStorage(
+  const [uname, setUname] = useState<string>("");
+  const [user, setUser] = useSessionStorage<UserType>("user", null);
+  const [loginSession, setLoginSession] = useSessionStorage<UserType>(
     "loginsession",
     null
   );
 
-  const [userForm, setUserForm] = useState({
-        name: user?.displayName,
-        email: user?.email,
-        phone: '',
-        role: '', 
+  const [userForm, setUserForm] = useState<UserFormType>({
+    name: user?.displayName,
+    email: user?.email,
+    phone: '',
+    role: '', 
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -32,7 +46,7 @@ const RegisterPage = () => {
         method: "POST",
         body: JSON.stringify(userForm),
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
           "X-Firebase-AppCheck": idToken,
         },
       });
@@ -42,7 +56,7 @@ const RegisterPage = () => {
 
       if (data.success) {
         window.location.href = '/dashboard';
-      }else{
+      } else {
         window.location.href = '/register';
       }
     
@@ -55,7 +69,7 @@ const RegisterPage = () => {
     try {
       const user = await submitUser();
 
-      if(user?.success == true){
+      if(user?.success === true){
         window.location.href = '/dashboard';
       }
 
@@ -65,13 +79,17 @@ const RegisterPage = () => {
   };
 
   useEffect(() => {
-    setUname(user?.displayName);
-  }, []);
+    setUname(user?.displayName || "");
+  }, [user]);
 
-  const tipeUser = [{label: "Client", value: "2", description: "Memiliki Pekerjaan dan sedang mencari freelancer"},{label: "Freelancer", value: "3", description: "Memiliki skill dan sedang mencari penghasilan"}]
+  const tipeUser = [
+    { label: "Client", value: "2", description: "Memiliki Pekerjaan dan sedang mencari freelancer" },
+    { label: "Freelancer", value: "3", description: "Memiliki skill dan sedang mencari penghasilan" }
+  ];
   
   return (
     <div className='w-full flex flex-col gap-4'>
+          <div className='w-full flex flex-col gap-4'>
         <div className='w-full mt-5'>
 
             <div className='col-span-12 flex flex-col justify-center gap-3'>
@@ -111,6 +129,7 @@ const RegisterPage = () => {
             </div>
             
         </div>
+    </div>
     </div>
   );
 };
