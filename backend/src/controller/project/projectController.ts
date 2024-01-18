@@ -62,7 +62,7 @@ export const dataById = async (req: Request, res: Response) => {
 };
 
 export const insertData = async (req: Request, res: Response) => {
-  const { title, description, owner_id } = req.body;
+  const { title, description, owner_id, wanted_deadline, target_deadline } = req.body;
 
   const project = new ProjectModel({
     status: 1,
@@ -70,12 +70,15 @@ export const insertData = async (req: Request, res: Response) => {
     title: title || "",
     description: description || "",
     asignee_needed: 0,
+    wanted_deadline: wanted_deadline || "",
+    target_deadline: target_deadline || "",
     asignee: [],
     submission: [],
   });
 
   try {
     const result = await project.save();
+    console.log(result)
     res.status(200).json(
       successResponse("SUCCESS", {
         results: result,

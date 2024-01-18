@@ -1,6 +1,7 @@
 import { db } from '../utils/firebase';
 
 export type User = {
+    id?: string;
     name: string;
     email: string;
     is_verified: boolean;
@@ -130,7 +131,8 @@ export default class UserModel implements User {
                 console.log('No such document!');
                 return null;
             } else {
-                return snapshot.docs[0].data() as User;
+                const userData = snapshot.docs[0].data() as User;
+                return { ...userData, id: snapshot.docs[0].id };
             }
         } catch (error) {
             console.error('Error getting user:', error);

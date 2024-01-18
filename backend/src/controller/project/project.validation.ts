@@ -5,6 +5,9 @@ export const ClientProjectSchema = validate(Joi.object({
   title: Joi.string().min(3).max(100).required(),
   description: Joi.string().min(3).max(500).required(),
   owner_id: Joi.string().required(),
+  wanted_deadline: Joi.string().required(),
+  target_deadline: Joi.string().required(),
+  status: Joi.number().required(),
 }));
 
 // export const ProjectByIdSchema = validate(Joi.object({
