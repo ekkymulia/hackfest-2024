@@ -72,6 +72,7 @@ const LoginPath: React.FC<LoginPathProps> = () => {
           setIsLoading(true);
           setUser(null);
           setLoginSession(null);
+          setuserData(null);
         })
         .then(() => {
           window.location.href = "/";
