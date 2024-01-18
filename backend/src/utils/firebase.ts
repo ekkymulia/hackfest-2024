@@ -1,5 +1,6 @@
 import { credential } from 'firebase-admin'
 import { initializeApp } from 'firebase-admin/app'
+import { getAppCheck } from "firebase-admin/app-check";
 import { getFirestore, CollectionReference, DocumentData, Query } from 'firebase-admin/firestore'
 
 // get the service account
@@ -24,6 +25,11 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
 // Helper buat query chain
 export const queryCollection = (collectionName: string): Query<DocumentData> => {
   return firestore.collection(collectionName);
+}
+
+// Helper buat cek sesi token
+export const verifyFirebaseToken = async (token: string) => {
+  return await getAppCheck().verifyToken(token);
 }
 
 // model types

@@ -4,6 +4,7 @@ import cors from "cors";
 // import { db } from "./utils/firebase";
 // import UserModel from "./models/user";
 import routesV1 from "../src/routes";
+import appCheckVerification from "./middlewares/appCheckVerification";
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use("/api/v1", routesV1);
+app.use("/api/v1", appCheckVerification, routesV1);
 
 // tes
 // app.get('/', (req, res) => {
@@ -26,7 +27,7 @@ app.use("/api/v1", routesV1);
 //     }
 // });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`\x1b[94mServer started on\x1b[0m \x1b[92mhttp://localhost:${port}\x1b[0m`);
 });
