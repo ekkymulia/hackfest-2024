@@ -7,6 +7,20 @@ import React from "react";
 import { BiBook, BiHome } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import { MdHomeFilled } from "react-icons/md";
+import CardSubscription from "../sub/CardSubscription";
+
+const reviewerRoutes = [
+  {
+    label: "Project Baru",
+    icon: BiHome,
+    href: "/reviewer/projects",
+  },
+  {
+    label: "Project Saya",
+    icon: BiHome,
+    href: "/reviewer/myprojects",
+  },
+];
 
 const clientRoutes = [
   {
@@ -57,6 +71,24 @@ const DashboardSidebar = () => {
             <p className="text-foreground text-base">Dashboard</p>
           </Button>
           <div>
+            <p className="text-sm ml-3">Reviewer Area</p>
+            <div>
+              {reviewerRoutes.map((route, index) => (
+                <Button
+                  key={index}
+                  as={Link}
+                  color={pathname === route.href ? "primary" : "default"}
+                  variant={pathname === route.href ? "flat" : "light"}
+                  href={route.href}
+                  className="w-full flex justify-start h-12 text-base"
+                >
+                  {React.createElement(route.icon, { className: "h-5 w-5" })}
+                  {route.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div>
             <p className="text-sm ml-3">Worker Area</p>
             <div>
               {workerRoutes.map((route, index) => (
@@ -96,7 +128,7 @@ const DashboardSidebar = () => {
       </div>
       <div className="px-3 py-2 flex-2">
         <div className="space-y-1">
-          <p>Subscription Card Disini</p>
+          <CardSubscription />
         </div>
       </div>
     </div>

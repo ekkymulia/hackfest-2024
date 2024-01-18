@@ -17,7 +17,7 @@ const RegisterPage = () => {
         name: user?.displayName,
         email: user?.email,
         phone: '',
-        role: '', // assuming you have a property for the user type
+        role: '', 
   });
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -48,7 +48,6 @@ const RegisterPage = () => {
     
     } catch (err) {
       console.error("Fetch user error:", err);
-      // Handle error, show user a message, etc.
     }
   };
 
@@ -75,9 +74,8 @@ const RegisterPage = () => {
     <div className='w-full flex flex-col gap-4'>
         <div className='w-full mt-5'>
 
-            
             <div className='col-span-12 flex flex-col justify-center gap-3'>
-                <h1 className='col-span-6 mt-5 mb-2 flex justify-center gap-3 text-3xl'>Hola, {uname}! 👋</h1>
+                <h1 className='col-span-6 mt-5 mb-2 flex justify-center gap-3 text-3xl font-bold'>Hola, {uname}! 👋</h1>
                 <h2 className='col-span-6 mb-10 flex justify-center gap-3 text-xl'>Lengkapi Akunmu dulu yuk!</h2>
             </div>
 
