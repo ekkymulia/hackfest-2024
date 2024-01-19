@@ -15,14 +15,17 @@ export const ClientProjectSchema = validate(Joi.object({
 // }));
 
 export const UpdateProjectSchema = validate(Joi.object({
-  projectId: Joi.string().required(),
+  owner_id: Joi.string().required(),
   status: Joi.number().required(),
-  asignee_needed: Joi.string(),
+  asignee_needed: Joi.number(),
   wanted_deadline: Joi.string(),
   target_deadline: Joi.string(),
   title: Joi.string().min(3).max(100),
   description: Joi.string().min(3).max(500),
+  asignee: Joi.array().items(Joi.string()),
+  submission: Joi.array().items(Joi.string()),
 }))
+
 
 export const DeletedProjectSchema = validate(Joi.object({
   userId: Joi.string().required(),
