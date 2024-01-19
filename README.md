@@ -1,4 +1,10 @@
-Project terupdate menggunakan branch branchnopal
+Project terupdate MENGGUNAKAN branch = branchnopal
 
-backend = folder backend
-frontend = folder landing
+backend = adalah folder backend
+
+
+
+frontend = adalah folder landing
+
+
+npm run dev di kedua folder bersamaan
