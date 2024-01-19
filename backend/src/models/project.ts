@@ -1,4 +1,4 @@
-import { User } from "@models/user";
+import UserModel, { User } from "./user";
 import { db, queryCollection } from "../utils/firebase";
 
 export type SubmissionModel = {
@@ -52,7 +52,7 @@ export default class ProjectModel implements Project {
     owner_id: string;
     title: string;
     wanted_deadline: string;
-    target_deadline: string
+    target_deadline: string;
     description: string;
     asignee_needed: number;
     asignee: User[];
@@ -176,7 +176,10 @@ export default class ProjectModel implements Project {
 
     static async updateById(id: string, project: { 
         status: string,
-        asignee_needed: string,
+        asignee: string[], 
+        asignee_uid: string[],
+        submission: [],
+        asignee_needed: number,
         wanted_deadline: string,
         target_deadline: string,
         title: string,
@@ -191,26 +194,39 @@ export default class ProjectModel implements Project {
                 return { status: false, message: 'Project not found', project: null };
             }
     
+            // Fetch user data for each assignee ID
+            const assigneePromises = project.asignee_uid.map(async (userId) => {
+                const userDoc = await db.users.doc(userId).get();
+                return userDoc.data();
+            });
+
+            const assigneeData = await Promise.all(assigneePromises);
+
+            const uniqueAssigneeData = Array.from(new Set(assigneeData));
+
+            // Update assignee field with unique user data
             const filteredProject = Object.fromEntries(
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                Object.entries(project).filter(([_, value]) => value !== undefined)
+                Object.entries(project).map(([key, value]) => {
+                    if (key === 'asignee') {
+                        return [key, uniqueAssigneeData];
+                    }
+                    return [key, value];
+                })
             );
     
-            const updatedData = { ...projectDoc.data(), ...filteredProject };
-    
-    
-            await projectsRef.doc(id).update(updatedData);
+            // Update the project document
+            await projectsRef.doc(id).update(filteredProject);
     
             const updatedProjectDoc = await projectsRef.doc(id).get();
             const updatedProjectData = updatedProjectDoc.data() as ProjectModel;
     
             return { status: true, message: 'Project updated successfully', project: updatedProjectData };
         } catch (error) {
-            
             console.error('Error updating project:', error);
             return { status: false, message: `Error updating project: ${error}`, project: null };
         }
     }
+    
 
 
     static async deleteById(id: string): Promise<{ status: boolean; message: string; projectId?: string }> {

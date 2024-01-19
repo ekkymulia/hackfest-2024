@@ -104,6 +104,9 @@ export const insertData = async (req: Request, res: Response) => {
 export const updateData = async (req: Request, res: Response) => {
   const {
       status,
+      asignee,
+      asignee_uid,
+      submission,
       asignee_needed,
       wanted_deadline,
       target_deadline,
@@ -123,6 +126,9 @@ export const updateData = async (req: Request, res: Response) => {
       // Update only the provided fields
       const updatedProject = await ProjectModel.updateById(projectId, {
           status,
+          asignee,
+          asignee_uid,
+          submission,
           asignee_needed,
           wanted_deadline,
           target_deadline,

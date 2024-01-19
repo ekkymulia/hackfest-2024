@@ -22,7 +22,8 @@ export const UpdateProjectSchema = validate(Joi.object({
   target_deadline: Joi.string(),
   title: Joi.string().min(3).max(100),
   description: Joi.string().min(3).max(500),
-  asignee: Joi.array().items(Joi.string()),
+  asignee: Joi.array(),
+  asignee_uid: Joi.array().items(Joi.string()),
   submission: Joi.array().items(Joi.string()),
 }))
 

@@ -48,6 +48,7 @@ const ProjectDetail = () => {
     asignee_needed: '',
     status: '',
     asignee: [],
+    asignee_uid: [],
     submission: [],
   });
 
@@ -70,6 +71,7 @@ const ProjectDetail = () => {
         owner_id: responseData.results.data.owner_id || '',
         status: responseData.results.data.status || '',
         asignee: responseData.results.data.asignee || [],
+        asignee_uid: responseData.results.data.asignee_uid || [],
         asignee_needed: responseData.results.data.asignee_needed || 0,
         description: responseData.results.data.description || '',
         target_deadline: responseData.results.data.target_deadline || '',
@@ -109,10 +111,50 @@ const ProjectDetail = () => {
     }
   };
 
-
   useEffect(() => {
       fetchData();
   }, [id]); 
+
+  const handleApplytoProject = async () => {
+    const updatedProjectForm = {
+      ...ProjectForm,
+      asignee_uid: [...ProjectForm.asignee_uid, userData.id],
+    };
+
+    console.log(updatedProjectForm)
+    try{
+      const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+      const res = await fetch(`http://localhost:8000/api/v1/projects/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedProjectForm),
+        headers: {
+          "Content-Type": "application/json",
+          "X-Firebase-AppCheck": idToken,
+        },
+      });
+
+      const responseData = await res.json();
+      console.log(responseData.results.project);
+      setData(responseData.results.project);
+      setProjectForm((prevProjectForm) => ({
+        ...prevProjectForm,
+        owner_id: responseData.results.project.owner_id || '',
+        status: responseData.results.project.status || '',
+        asignee: responseData.results.project.asignee || [],
+        asignee_needed: responseData.results.project.asignee_needed || 0,
+        asignee_uid: responseData.results.project.asignee_uid || [],
+        description: responseData.results.project.description || '',
+        target_deadline: responseData.results.project.target_deadline || '',
+        title: responseData.results.project.title || '',
+        wanted_deadline: responseData.results.project.wanted_deadline || '',
+      }));
+      setLoading(false);
+    }catch (err) {
+      console.error("Fetch project error:", err);
+      setError("Error fetching project data");
+      setLoading(false);
+    }
+  }
 
   const handleUpdate = async () => {
     try {
@@ -296,36 +338,33 @@ const ProjectDetail = () => {
                     <TableHeader>
                       <TableColumn>NAME</TableColumn>
                       <TableColumn>ROLE</TableColumn>
-                      <TableColumn>STATUS</TableColumn>
+                      <TableColumn>Email</TableColumn>
                     </TableHeader>
                     <TableBody>
-                      <TableRow key="1">
-                        <TableCell>Naufal Rizqullah</TableCell>
-                        <TableCell>Developer</TableCell>
-                        <TableCell>Active</TableCell>
-                      </TableRow>
-                      <TableRow key="2">
-                        <TableCell>Zoey Lang</TableCell>
-                        <TableCell>Technical Lead</TableCell>
-                        <TableCell>Paused</TableCell>
-                      </TableRow>
-                      <TableRow key="3">
-                        <TableCell>Jane Fisher</TableCell>
-                        <TableCell>Senior Developer</TableCell>
-                        <TableCell>Active</TableCell>
-                      </TableRow>
-                      <TableRow key="4">
-                        <TableCell>William Howard</TableCell>
-                        <TableCell>Community Manager</TableCell>
-                        <TableCell>Vacation</TableCell>
-                      </TableRow>
+                      {
+                        data.asignee.length > 0 ? (
+                          data.asignee.map((item, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{item.name}</TableCell>
+                              <TableCell>Freelancer</TableCell>
+                              <TableCell>{item.email}</TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell>No Assignee</TableCell>
+                            <TableCell>No Assignee</TableCell>
+                            <TableCell>No Assignee</TableCell>
+                          </TableRow>
+                        )
+                      }
                     </TableBody>
                   </Table>
 
                   {
-                    user.role == 3 ? (
+                    userData.role == 3 && !data.asignee_uid.includes(userData.id) ? (
                     <div className="flex justify-end mt-2">
-                    <Button size="sm" className="max-w-40 my-2" radius="sm" color="primary">
+                    <Button size="sm" className="max-w-40 my-2" radius="sm" color="primary" onClick={handleApplytoProject}>
                       Apply to project
                     </Button>
                     </div>
