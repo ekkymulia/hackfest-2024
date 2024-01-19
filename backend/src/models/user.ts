@@ -82,7 +82,7 @@ export default class UserModel implements User {
     }
 
     // Get a user by ID from Firestore
-    async getById(id: string): Promise<User | null> {
+    static async getById(id: string): Promise<User | null> {
         try {
             const userRef = db.users.doc(id);
             const doc = await userRef.get();
@@ -97,6 +97,7 @@ export default class UserModel implements User {
             return null;
         }
     }
+    
 
     // Update a user by ID in Firestore
     async updateById(id: string, data: User): Promise<{ status: boolean; message: string }> {

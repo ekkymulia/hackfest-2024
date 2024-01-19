@@ -1,6 +1,7 @@
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import FounderCard from "../sub/FounderCard";
+import Image from "next/image";
 
 interface Founder {
   name: string;
@@ -56,7 +57,7 @@ export default function AboutSection() {
               </p>
             </div>
             <div className="md:col-span-5 mt-5">
-              <img
+              <Image
                 src="/img-2/tw-logo-ijo.png"
                 alt=""
                 className="mx-auto"

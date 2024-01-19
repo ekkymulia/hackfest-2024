@@ -14,6 +14,7 @@ import {
 } from "@nextui-org/react";
 import { ModeToggle } from "./SwitchTheme";
 import LoginPath from "./LoginPath";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", name: "Home" },
@@ -45,7 +46,7 @@ const Header = () => {
       <NavbarContent>
         <NavbarBrand>
           <Link href="/">
-            <img src="/img-2/tw-logo-ijo.png" width={30} height={30} alt="" />
+            <Image src="/img-2/tw-logo-ijo.png" width={30} height={30} alt="" />
           </Link>
         </NavbarBrand>
       </NavbarContent>

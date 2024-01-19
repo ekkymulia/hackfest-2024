@@ -10,7 +10,6 @@ const ClientProjectPage = () => {
     "userdata",
     null
   );
-  const [userData, setUserData] = useSessionStorage("userdata", null);
 
   const fetchStatus = async () => {
     try {
