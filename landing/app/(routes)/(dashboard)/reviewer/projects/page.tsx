@@ -86,7 +86,16 @@ const ReviewerProjectPage = () => {
     <div className="m-12">
       <h1 className="text-2xl fw-bold mb-5">Tambah Project Baru</h1>
       <form>
-      
+      <label htmlFor="">Pilih Status</label>
+        <Select
+          items={projectStatus}
+          className="mb-4"
+          placeholder='Pilih Status'
+          name="status" // Provide a meaningful name
+          onChange={handleInputChange}
+        >
+          {(ps) => <SelectItem key={ps.value}>{ps.label}</SelectItem>}
+        </Select>
         <label htmlFor="">Title Project</label>
         <Input type="text" name="title" label="Isi Judul Project Baru" className="mb-4" onChange={handleInputChange} />
 
@@ -99,8 +108,8 @@ const ReviewerProjectPage = () => {
         <label htmlFor="">Target Deadline</label>
         <Input type="date" name="target_deadline" className="mb-4" onChange={handleInputChange}/>
 
-        <label htmlFor="">Berkas Pendukung</label>
-        <Input type="file" name="projectFile" label="" className="mb-4" onChange={handleInputChange}/>
+        {/* <label htmlFor="">Berkas Pendukung</label>
+        <Input type="file" name="projectFile" label="" className="mb-4" onChange={handleInputChange}/> */}
 
         <Button type="button" onClick={handleSubmit} className="my-4" color="primary">
           Submit

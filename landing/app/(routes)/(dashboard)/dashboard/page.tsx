@@ -14,6 +14,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  Button,
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
@@ -67,7 +68,6 @@ const fetchData = async (apiUrl) => {
 };
 
 const DashboardPage = () => {
-
   const [data, setData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -101,7 +101,6 @@ const DashboardPage = () => {
     fetchData();
   }, []);
 
-
   const renderCell = (item: Project, columnKey: string) => {
     switch (columnKey) {
       case "title":
@@ -115,9 +114,13 @@ const DashboardPage = () => {
       case "action":
         return (
           <div className="flex justify-center">
-            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <Button
+              href={`/projects/${item.id}`}
+              as={Link}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >
               View
-            </button>
+            </Button>
           </div>
         );
     }
@@ -151,8 +154,12 @@ const DashboardPage = () => {
           </div>
         ))}
       </div>
-      <Table className="px-12" aria-label="Example static collection table" color="primary"
-        selectionMode="multiple" >
+      <Table
+        className="px-12"
+        aria-label="Example static collection table"
+        color="primary"
+        selectionMode="multiple"
+      >
         <TableHeader>
           <TableColumn>Name</TableColumn>
           <TableColumn>Description</TableColumn>
