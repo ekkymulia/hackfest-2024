@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="text-teal-600">
-              <img src="/img-2/tw-logo-text-ijo-2.png" width={200} height={200} alt="" />
+              <Image src="/img-2/tw-logo-text-ijo-2.png" width={200} height={200} alt="" />
             </div>
 
             <p className="mt-4 max-w-xs text-gray-500">

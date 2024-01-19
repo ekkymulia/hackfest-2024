@@ -1,5 +1,5 @@
 'use client'
-import ProjectTable, { Column, Row } from "@/components/sub/TableProjects";
+import ProjectTable, { Column, Row } from "@/components/sub/DashboardCard";
 import { auth } from "@/utils/firebase";
 import React, { useEffect, useState } from "react";
 

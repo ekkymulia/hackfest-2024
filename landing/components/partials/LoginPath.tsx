@@ -66,41 +66,27 @@ const LoginPath: React.FC<LoginPathProps> = () => {
 
   const handleLogout = async () => {
     try {
-      await auth
-        .signOut()
-        .then(() => {
-          setIsLoading(true);
-          setUser(null);
-          setLoginSession(null);
-          setuserData(null);
-        })
-        .then(() => {
-          window.location.href = "/";
-        });
+      await auth.signOut();
+      setIsLoading(true);
+      setUser(null);
+      setLoginSession(null);
+      setuserData(null);
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   useEffect(() => {
     const handleRedirectResult = async () => {
       try {
         setIsLoading(true);
-        const response = await getRedirectResult(auth);
+        const response:an = await getRedirectResult(auth);
 
-        if (response !== null) {
+        if (response !== null && response.user) {
           setUser(response.user);
-
-          console.log(response.user);
-
-          // if (response.user !== null) {
-          //   window.location.href = "/dashboard";
-          // }
-
-          if (response.user) {
-            await checkUser(response.user.email);
-          }
-  
+          await checkUser(response.user.email);
         } else {
           console.error("No redirect result available.");
         }
@@ -112,7 +98,7 @@ const LoginPath: React.FC<LoginPathProps> = () => {
     };
 
     handleRedirectResult();
-  }, []);
+  }, [setUser, checkUser]);
 
   return (
     <div>

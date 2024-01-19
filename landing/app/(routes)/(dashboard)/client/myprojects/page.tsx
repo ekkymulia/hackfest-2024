@@ -12,6 +12,7 @@ import {
 import { useSessionStorage } from "@uidotdev/usehooks";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+
 interface Project {
   id: string;
   title: string;

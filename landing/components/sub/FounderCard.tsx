@@ -1,4 +1,5 @@
 import { Button } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -22,7 +23,7 @@ const FounderCard: React.FC<FounderCardProps> = ({
       </h5>
 
       <div className="flex items-center justify-center">
-        <img
+        <Image
           src={imageSrc}
           alt="Founder Image"
           width={300}

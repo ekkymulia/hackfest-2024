@@ -45,6 +45,27 @@ interface Project {
   status: number;
 }
 
+const fetchData = async (apiUrl) => {
+  try {
+    const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+    const res = await fetch(apiUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Firebase-AppCheck": idToken || "",
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    const json = await res.json();
+    return json.results.data;
+  } catch (error) {
+    throw new Error(`Error fetching data: ${error.message}`);
+  }
+};
+
 const DashboardPage = () => {
 
   const [data, setData] = useState<Project[]>([]);
@@ -79,6 +100,7 @@ const DashboardPage = () => {
 
     fetchData();
   }, []);
+
 
   const renderCell = (item: Project, columnKey: string) => {
     switch (columnKey) {
