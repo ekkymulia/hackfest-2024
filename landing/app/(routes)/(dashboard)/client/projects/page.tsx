@@ -10,7 +10,7 @@ const ClientProjectPage = () => {
     "userdata",
     null
   );
-  const [user, setUser] = useSessionStorage("user", null);
+  const [userData, setUserData] = useSessionStorage("userdata", null);
 
   const fetchStatus = async () => {
     try {
@@ -44,7 +44,7 @@ const ClientProjectPage = () => {
   }, []); // Pass an empty dependency array
 
   const [projectForm, setprojectForm] = useState({
-    owner_id: user.uid,
+    owner_id: userData.id,
     title: '',
     description: '',
     wanted_deadline: '', 

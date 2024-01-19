@@ -2,7 +2,7 @@ import { Button, Card, CardBody, Modal, ModalBody, ModalContent, ModalFooter, Mo
 import React from "react";
 
 const CardSubscription = () => {
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   return (
     <div>
       <Card>

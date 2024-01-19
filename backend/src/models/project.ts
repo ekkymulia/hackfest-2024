@@ -47,6 +47,7 @@ const defaultProject: Project = {
 };
 
 export default class ProjectModel implements Project {
+    id?: string | null;
     status: number;
     owner_id: string;
     title: string;
@@ -155,14 +156,14 @@ export default class ProjectModel implements Project {
     }
     
 
-    static async getById(id: string): Promise<ProjectModel | null> {
+    static async getById(id: string): Promise<Project | ProjectModel | null> {
         try {
             const projectsRef = db.projects; 
             const projectDoc = await projectsRef.doc(id).get();
 
             if (projectDoc.exists) {
-                const projectData = projectDoc.data() as ProjectModel;
-                return projectData;
+                const projectData = projectDoc.data() as Project | ProjectModel;
+                return { ...projectData, id: id };
             } else {
                 console.error('Project not found with ID:', id);
                 return null;

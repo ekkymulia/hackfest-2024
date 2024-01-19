@@ -1,6 +1,7 @@
 "use client";
 import { auth } from "@/utils/firebase";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -9,6 +10,7 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { useSessionStorage } from "@uidotdev/usehooks";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 interface Project {
   id: string;
@@ -23,7 +25,7 @@ const ClientMyProject = () => {
   const [data, setData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useSessionStorage("user", null);
+  const [userData, setUserData] = useSessionStorage("userdata", null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +33,7 @@ const ClientMyProject = () => {
         const idToken = await auth.currentUser?.getIdToken(
           /* forceRefresh */ true
         );
-        const res = await fetch("http://localhost:8000/api/v1/projects?owner_id=" + user.uid, {
+        const res = await fetch("http://localhost:8000/api/v1/projects?owner_id=" + userData.id, {
           headers: {
             "Content-Type": "application/json",
             "X-Firebase-AppCheck": idToken || "",
@@ -112,9 +114,12 @@ const ClientMyProject = () => {
               <TableCell>{item.target_deadline}</TableCell>
               <TableCell>
                 <div className="flex justify-center">
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  <Button
+                    href={`/projects/${item.id}`}
+                    as={Link}
+                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     View
-                  </button>
+                  </Button>
                 </div>
               </TableCell>
             </TableRow>
