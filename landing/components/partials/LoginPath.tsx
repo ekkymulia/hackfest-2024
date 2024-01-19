@@ -19,15 +19,14 @@ const LoginPath: React.FC<LoginPathProps> = () => {
     "loginsession",
     null
   );
-  const [userData, setuserData] = useSessionStorage(
-    "userdata",
-    null
-  );
+  const [userData, setuserData] = useSessionStorage("userdata", null);
   const pathname = usePathname();
 
   const checkUser = async (mail: string) => {
     try {
-      const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+      const idToken = await auth.currentUser?.getIdToken(
+        /* forceRefresh */ true
+      );
       const res = await fetch(`http://localhost:8000/api/v1/users`, {
         method: "POST",
         body: JSON.stringify({ email: mail }),
@@ -38,15 +37,14 @@ const LoginPath: React.FC<LoginPathProps> = () => {
       });
 
       const data = await res.json();
-      console.log(data)
+      console.log(data);
 
       if (data.success) {
-        setuserData(data.results)
-        window.location.href = '/dashboard';
-      }else{
-        window.location.href = '/register';
+        setuserData(data.results);
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/register";
       }
-    
     } catch (err) {
       console.error("Fetch user error:", err);
       // Handle error, show user a message, etc.
@@ -76,13 +74,12 @@ const LoginPath: React.FC<LoginPathProps> = () => {
       console.log(error);
     }
   };
-  
 
   useEffect(() => {
     const handleRedirectResult = async () => {
       try {
         setIsLoading(true);
-        const response:an = await getRedirectResult(auth);
+        const response: an = await getRedirectResult(auth);
 
         if (response !== null && response.user) {
           setUser(response.user);
@@ -103,8 +100,12 @@ const LoginPath: React.FC<LoginPathProps> = () => {
   return (
     <div>
       {user ? (
-        (pathname === "/" || pathname === "/about" || pathname === "/contact") ? (
-          <Button variant="ghost" color="primary" onClick={() => (window.location.href = "/dashboard")}>
+        pathname === "/" || pathname === "/about" || pathname === "/contact" ? (
+          <Button
+            variant="ghost"
+            color="primary"
+            onClick={() => (window.location.href = "/dashboard")}
+          >
             Dashboard
           </Button>
         ) : (
@@ -113,7 +114,13 @@ const LoginPath: React.FC<LoginPathProps> = () => {
           </Button>
         )
       ) : (
-        (pathname === "/" || pathname === "/about" || pathname === "/contact") && <Button color="primary" onClick={handleSignIn}>Login</Button>
+        (pathname === "/" ||
+          pathname === "/about" ||
+          pathname === "/contact") && (
+          <Button color="primary" onClick={handleSignIn}>
+            Login
+          </Button>
+        )
       )}
     </div>
   );
