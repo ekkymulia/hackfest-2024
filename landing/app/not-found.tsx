@@ -11,7 +11,7 @@ export default function NotFound() {
           Uh-oh!
         </p>
 
-        <p className="mt-4 text-muted-foreground">We can't find that page.</p>
+        <p className="mt-4 text-muted-foreground">We can&apos;t find that page.</p>
         <Button as={Link} href="/" color="primary" className="mt-6">
           Go Back Home
         </Button>

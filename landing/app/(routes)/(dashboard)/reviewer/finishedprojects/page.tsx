@@ -1,4 +1,4 @@
-import ProjectTable, { Column, Row } from "@/components/sub/TableProjects";
+import ProjectTable, { Column, Row } from "@/components/sub/DashboardCard";
 import React from "react";
 
 const myClientCol: Column[] = [
