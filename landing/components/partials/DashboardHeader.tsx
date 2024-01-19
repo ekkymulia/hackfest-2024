@@ -12,13 +12,18 @@ type LoginButton = {
   isLoading?: boolean;
 };
 
-const DashboardHeader = () => {
+type DashboardHeaderProps = {
+  toggleMobileSidebar: () => void;
+};
+
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({ toggleMobileSidebar }) => {
   const [user, setUser] = useSessionStorage("user", null);
   const [isLoading, setIsLoading] = useState(false);
   const [loginSession, setLoginSession] = useSessionStorage(
     "loginsession",
     null
   );
+
   const handleLogout = async () => {
     try {
       await auth
@@ -38,6 +43,15 @@ const DashboardHeader = () => {
 
   return (
     <div className="flex justify-end items-center p-4 bg-background border-b-1 border-gray-400 dark:border-gray-700">
+      <div className="flex gap-2 mr-auto">
+        <Button
+            color="default"
+            className="md:hidden"
+            onClick={toggleMobileSidebar}
+          >
+          ☰
+        </Button>
+      </div>   
       <div className="flex gap-2">
         <ModeToggle />
         <LoginPath />
